@@ -7,7 +7,6 @@ import {PostsComponent} from './components/posts.component';
 new HeaderComponent('header');
 
 const navigation = new NavigationComponent('navigation');
-
 const create = new CreateComponent('create');
 const favorite = new FavoriteComponent('favorite');
 const posts = new PostsComponent('posts');
