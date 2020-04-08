@@ -33,32 +33,24 @@ function buttonHandler(event) {
   
   const id = $el.dataset.id;
   const name = $el.closest('.panel').querySelector('.panel-title').textContent;
-  
-  if (name) {
-    let names = JSON.parse(localStorage.getItem('names')) || [];
-
-    if (names.includes(name)) names = names.filter(fName => fName !== name)
-    else names.push(name);
-
-    localStorage.setItem('names', JSON.stringify(names));
-  }
 
   if (id) {
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const candidate = favorites.find(p => p.id === id);
     
-    if (favorites.includes(id)) {
+    if (candidate) {
       $el.textContent = 'Сохранить';
       $el.classList.add('button-primary');
       $el.classList.remove('button-danger');
 
-      favorites = favorites.filter(fId => fId !== id);
+      favorites = favorites.filter(p => p.id !== id);
 
     } else {
       $el.textContent = 'Удалить';
       $el.classList.add('button-danger');
       $el.classList.remove('button-primary');
 
-      favorites.push(id);
+      favorites.push({id, name});
     }
 
     localStorage.setItem('favorites', JSON.stringify(favorites));

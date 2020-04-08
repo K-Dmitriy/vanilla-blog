@@ -15,10 +15,7 @@ export class FavoriteComponent extends Component {
 
   onShow() {
     const favorites = JSON.parse(localStorage.getItem('favorites'));
-    const names = JSON.parse(localStorage.getItem('names'));
-
     const html = renderList(favorites);
-    // renderList(names);
 
     this.$el.insertAdjacentHTML('afterbegin', html);
   }
@@ -32,7 +29,7 @@ async function linkClickHandler(event) {
   event.preventDefault();
 
   if(event.target.classList.contains('js-link')) {
-    const postId = event.target.textContent;
+    const postId = event.target.dataset.id;
 
     this.$el.innerHTML = '';
     
@@ -45,10 +42,10 @@ async function linkClickHandler(event) {
 }
 
 function renderList(list = []) {
-  if (list.length) {
+  if (list && list.length) {
     return `
       <ul>
-        ${list.map(item => `<li><a href="#" class="js-link">${item}</a></li>`).join('')}
+        ${list.map(item => `<li><a href="#" class="js-link" data-id="${item.id}">${item.name}</a></li>`).join('')}
       </ul>
     `
   }
