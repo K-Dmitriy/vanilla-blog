@@ -57,7 +57,18 @@ function renderPost(post) {
 
 function buttonHandler(event) {
   const $el = event.target;
+  
   const id = $el.dataset.id;
+  const name = $el.closest('.panel').querySelector('.panel-title').textContent;
+  
+  if (name) {
+    let names = JSON.parse(localStorage.getItem('names')) || [];
+
+    if (names.includes(name)) names = names.filter(fName => fName !== name)
+    else names.push(name);
+
+    localStorage.setItem('names', JSON.stringify(names));
+  }
 
   if (id) {
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
